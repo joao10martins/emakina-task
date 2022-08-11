@@ -1,11 +1,9 @@
+import 'package:emakina_task/features/projects/repositories/repo_impl/project_repository_impl.dart';
+import 'package:emakina_task/features/projects/repositories/repo_interfaces/project_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:emakina_task/core/theme/theme.dart';
-/*import 'package:emakina_task/features/location/data/repositories/location_repository_impl.dart';
-import 'package:emakina_task/features/location/domain/repositories/location_repository.dart';
-import 'package:emakina_task/features/weather/data/repositories/weather_repository_impl.dart';
-import 'package:emakina_task/features/weather/domain/repositories/weather_repository.dart';*/
 
 import 'router.dart';
 
@@ -16,12 +14,19 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: appName,
-      theme: getAppTheme(context),
-      darkTheme: getAppTheme(context),
-      initialRoute: '/',
-      onGenerateRoute: (settings) => router(settings),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<ProjectRepository>(
+          create: (BuildContext context) => ProjectRepositoryImpl(),
+        ),
+      ],
+      child: MaterialApp(
+        title: appName,
+        theme: getAppTheme(context),
+        darkTheme: getAppTheme(context),
+        initialRoute: '/',
+        onGenerateRoute: (settings) => router(settings),
+      ),
     );
   }
 }

@@ -9,4 +9,6 @@ abstract class Strings {
   static const String privacyPolicyPageTitle = 'Privacy Policy';
   static const String privacyPolicyNavBarTitle = 'Privacy';
 
+  /// General
+  static const String somethingWentWrong = 'Ups.. something went wrong';
 }
