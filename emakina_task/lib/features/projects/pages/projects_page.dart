@@ -22,21 +22,28 @@ class ProjectsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(Strings.projectsPageTitle),
         ),
-        body: _buildBody(context),
+        body: PageBody(context: context),
       ),
     );
   }
+}
 
-  Widget _buildBody(BuildContext context) {
+class PageBody extends StatelessWidget {
+  const PageBody({
+    Key? key,
+    required this.context,
+  }) : super(key: key);
+
+  final BuildContext context;
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<ProjectBloc, ProjectState>(
       builder: (BuildContext context, ProjectState state) {
         return state.when(
           initial: () => const SizedBox.shrink(),
           loading: () => const ProgressView(),
-          projects: (List<Project> projects) => _buildProjectList(
-            context,
-            projects,
-          ),
+          projects: (List<Project> projects) => ProjectList(context: context, projects: projects),
           failed: (Failure failure) => Center(
             child: FailureView(
               failure: failure,
@@ -46,8 +53,20 @@ class ProjectsPage extends StatelessWidget {
       },
     );
   }
+}
 
-  Widget _buildProjectList(BuildContext context, List<Project> projects) {
+class ProjectList extends StatelessWidget {
+  const ProjectList({
+    Key? key,
+    required this.context,
+    required this.projects,
+  }) : super(key: key);
+
+  final BuildContext context;
+  final List<Project> projects;
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.all(12),
       itemBuilder: (BuildContext context, int index) {
