@@ -22,7 +22,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
         initialFile: 'assets/privacyPolicy/privacy.html',
         initialOptions: InAppWebViewGroupOptions(
           crossPlatform: InAppWebViewOptions(
-            preferredContentMode: UserPreferredContentMode.DESKTOP,
+            preferredContentMode: UserPreferredContentMode.MOBILE,
           ),
         ),
         onWebViewCreated: (InAppWebViewController webViewController) {
